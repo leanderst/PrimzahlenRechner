@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -47,15 +47,17 @@ namespace PrimzahlenRechner
             do
             {
                 //Auzählung oder Abfrage Eingabe
+                Console.Clear();
                 Console.CursorVisible = false;
                 Console.WriteLine("Zahl nach Primeigenschaften überprüfen   ->  [1]"); //48
                 Console.WriteLine("Primzahlen aufzählen                     ->  [2]");
                 Console.WriteLine("Primzahlen Matrix                        ->  [3]");
-                Console.WriteLine("Programm beenden                         ->  [4]");
+                Console.WriteLine("Primzahlen Liste erstellen               ->  [4]");
+                Console.WriteLine("Programm beenden                         ->  [5]");
                 do
                 {
                     modus = Console.ReadKey(true).KeyChar.ToString();
-                    if (modus != "1" && modus != "2" && modus != "3" && modus != "4" && modus != "!"/*1*/ && modus != "\""/*2*/ && modus != "²"/*2*/ && modus != "³"/*3*/ && modus != "§"/*3*/ && modus != "$"/*4*/)
+                    if (modus != "1" && modus != "2" && modus != "3" && modus != "4" && modus != "5" && modus != "!"/*1*/ && modus != "\""/*2*/ && modus != "²"/*2*/ && modus != "³"/*3*/ && modus != "§"/*3*/ && modus != "$"/*4*/ && modus != "%"/*5*/)
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.SetCursorPosition(45, 0);
@@ -66,6 +68,8 @@ namespace PrimzahlenRechner
                         Console.WriteLine("[3]");
                         Console.SetCursorPosition(45, 3);
                         Console.WriteLine("[4]");
+                        Console.SetCursorPosition(45, 4);
+                        Console.WriteLine("[5]");
                         Thread.Sleep(50);
                         Console.ForegroundColor = ConsoleColor.White;
                         Console.SetCursorPosition(45, 0);
@@ -76,8 +80,10 @@ namespace PrimzahlenRechner
                         Console.WriteLine("[3]");
                         Console.SetCursorPosition(45, 3);
                         Console.WriteLine("[4]");
+                        Console.SetCursorPosition(45, 4);
+                        Console.WriteLine("[5]");
                     }
-                } while (modus != "1" && modus != "2" && modus != "3" && modus != "4" && modus != "!"/*1*/ && modus != "\""/*2*/ && modus != "²"/*2*/ && modus != "³"/*3*/ && modus != "§"/*3*/ && modus != "$"/*4*/);
+                } while (modus != "1" && modus != "2" && modus != "3" && modus != "4" && modus != "5" && modus != "!"/*1*/ && modus != "\""/*2*/ && modus != "²"/*2*/ && modus != "³"/*3*/ && modus != "§"/*3*/ && modus != "$"/*4*/ && modus != "%"/*5*/);
                 Console.Clear();
 
 
@@ -169,15 +175,15 @@ namespace PrimzahlenRechner
 
                     //Primzahlen Aufzählung
                     /*
-                    1. Primzahl =       1         | 1ställig | * 1.0
-                    6. Primzahl =       11        | 2ställig | * 1.8  (+0.8)
-                    27. Primzahl =      101       | 3ställig | * 3.7  (+1.9)
-                    170. Primzahl =     1009      | 4ställig | * 5.9  (+2.2)
-                    1231. Primzahl =    10007     | 5ställig | * 8.1  (+2.2)
-                    9594. Primzahl =    100003    | 6ställig | * 10.4 (+2.3)
-                    78500. Primzahl =   1000003   | 7ställig | * 12.7 (+2.3)
-                    664581. Primzahl =  10000019  | 8ställig | * 15.0 (+2.3)
-                    5761457. Primzahl = 100000007 | 9ställig | * 17.3 (+2.3)
+                    1. Primzahl =       1         | 1stellig | * 1.0
+                    6. Primzahl =       11        | 2stellig | * 1.8  (+0.8)
+                    27. Primzahl =      101       | 3stellig | * 3.7  (+1.9)
+                    170. Primzahl =     1009      | 4stellig | * 5.9  (+2.2)
+                    1231. Primzahl =    10007     | 5stellig | * 8.1  (+2.2)
+                    9594. Primzahl =    100003    | 6stellig | * 10.4 (+2.3)
+                    78500. Primzahl =   1000003   | 7stellig | * 12.7 (+2.3)
+                    664581. Primzahl =  10000019  | 8stellig | * 15.0 (+2.3)
+                    5761457. Primzahl = 100000007 | 9stellig | * 17.3 (+2.3)
                     */
                     switch (startNummer.ToString().Length)
                     {
@@ -237,10 +243,9 @@ namespace PrimzahlenRechner
                             }
                             //Console.WriteLine("zahlEingabe = " + zahlEingabe + "  |  primzahlenZahler = " + primzahlenZahler + "  |  primzahlenMItZahler = " + primzahlenMitZahler);
                             //Ausrechnung
-                            zahlEingabe++;
                             if (primzahlenMitZahler < 13852)
                             {
-                                if (Convert.ToInt32(primzahlenListe[Convert.ToInt32(primzahlenMitZahler)]) == zahlEingabe)
+                                if (Convert.ToInt32(primzahlenListe[Convert.ToInt32(primzahlenMitZahler - 1)]) == zahlEingabe)
                                 {
                                     if (primzahlenMitZahler >= startNummer && primzahlenMitZahler <= zielNummer)
                                     {
@@ -253,6 +258,7 @@ namespace PrimzahlenRechner
                                     }
                                     primzahlenMitZahler++;
                                 }
+                                zahlEingabe++;
                             }
                             else
                             {
@@ -264,7 +270,7 @@ namespace PrimzahlenRechner
                     //Eigenausrechnung der Primzahlen
                     if (zielNummer > 26002)
                     {
-                        while (primzahlenZahler <= zielNummer)
+                        while (primzahlenMitZahler <= zielNummer)
                         {
                             //Escape Abbruch Knopf
                             if (Console.KeyAvailable)
@@ -276,7 +282,6 @@ namespace PrimzahlenRechner
                             }
 
                             //Ausrechnung
-                            zahlEingabe++;
                             if (IstPrimzahlNeu(zahlEingabe, primzahlenListe))
                             {
                                 if (primzahlenZahler >= startNummer && primzahlenZahler <= zielNummer)
@@ -286,10 +291,11 @@ namespace PrimzahlenRechner
                                     Console.SetCursorPosition(50, Convert.ToInt32(primzahlenZahler));
 
                                     primzahlenZahler++;
-                                     Console.WriteLine("=     " + zahlEingabe);
+                                    Console.WriteLine("=     " + zahlEingabe);
                                 }
                                 primzahlenMitZahler++;
                             }
+                            zahlEingabe++;
                         }
                     }
                 }
@@ -413,8 +419,78 @@ namespace PrimzahlenRechner
                     }
                 }
 
-                //Programm beenden
+                //Primzahlen Liste erstellen
                 if (modus == "4" || modus == "$")
+                {
+                    Console.WriteLine("     ( Drücke [Esc] um abzubrechen. )\n");
+
+                    //Startnummer Eingabe
+                    do
+                    {
+                        Console.Write("Start Primzahl: ");
+                        Console.CursorVisible = true;
+                        startNummerString = Console.ReadLine();
+                        Console.CursorVisible = false;
+                        double.TryParse(startNummerString, out startNummer);
+                    } while (startNummer <= 0);
+                    startNummer = (double)Math.Round(startNummer, 0);
+
+                    //Zielnummer Eingabe
+                    do
+                    {
+                        Console.Write("Ziel Primzahl:  ");
+                        Console.CursorVisible = true;
+                        zielNummerString = Console.ReadLine();
+                        Console.CursorVisible = false;
+                        double.TryParse(zielNummerString, out zielNummer);
+                    } while (zielNummer <= 0);
+                    zielNummer = (double)Math.Round(zielNummer, 0);
+                    Console.Clear();
+
+                    //Mit Userpfad oder ohne auswählen
+                    Console.CursorVisible = false;
+                    Console.WriteLine("\"C:\\Users\\" + Environment.UserName + "\\\"  ->  [1] | Pfad selber ausschreiben  ->  [2]");
+                    do
+                    {
+                        modus = Console.ReadKey(true).KeyChar.ToString();
+                    } while (modus != "1" && modus != "2" && modus != "!"/*1*/ && modus != "\""/*2*/ && modus != "²"/*2*/);
+
+                    bool Wiederholen = false;
+                    do
+                    {
+                        Console.WriteLine("\n     ( Gebe \"STOPP\" ein um abb zu brechen. )\n");
+                        string Pfad;
+                        Console.CursorVisible = true;
+                        if (modus == "1" || modus == "!"/*1*/)
+                        {
+                            Pfad = "C:\\Users\\" + Environment.UserName + "\\";
+                            Console.Write("Pfad: " + Pfad);
+                            Pfad = Pfad + Console.ReadLine();
+                        }
+                        else
+                        {
+                            Console.Write("Pfad: ");
+                            Pfad = Console.ReadLine();
+                        }
+                        Console.CursorVisible = false;
+                        if (Pfad.Substring(Pfad.Length - 5, 5) == "STOPP") break;
+
+                        //try
+                        //{
+                            PersönlichePrimzahlenListeErstellen(startNummer, zielNummer, Pfad, primzahlenListe);
+                        //}
+                        /*
+                        catch
+                        {
+                            Wiederholen = true;
+                            Console.WriteLine("Beim Erstellen der Liste ist leider ein Fehler passiert.");
+                        }
+                        */
+                    } while (Wiederholen);
+                }
+
+                //Programm beenden
+                if (modus == "5" || modus == "%")
                 {
                     Console.WriteLine("Auf Wiedersehen!");
                     Thread.Sleep(1000);
@@ -470,7 +546,7 @@ namespace PrimzahlenRechner
             Console.WriteLine("                                          ( Das Progamm wird kurz vorbereitet. )");
             Console.WriteLine("\n     ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░");
 
-            //Dekleration der ersten 1000 Primzahlen
+            //Dekleration der ersten 26000 Primzahlen
             Console.SetCursorPosition(Convert.ToInt32(5), 2);
             int zahler = 0, ladeBalken = 0, primZahlenZahler = 0;
             while (zahler <= 300080)
@@ -488,15 +564,138 @@ namespace PrimzahlenRechner
                     primZahlenZahler++;
                 }
             }
-            /*
-            string[] stringPrimzahlenListe = new string[26003];
-            for (int i = 0; i < primzahlenListe.Length; i++)
-            {
-                stringPrimzahlenListe[i] = primzahlenListe[i].ToString();
-            }
-            */
             File.WriteAllText($@"C:\Users\" + Environment.UserName + "\\Documents\\Primzahlenliste.txt", "");
             File.WriteAllLines($@"C:\Users\" + Environment.UserName + "\\Documents\\Primzahlenliste.txt", Array.ConvertAll(primzahlenListe, x => x.ToString()));
+            Console.Clear();
+        }
+
+        static void PersönlichePrimzahlenListeErstellen(double startNummer, double zielNummer, string Pfad, int[] primzahlenListe)
+        {
+            Console.WriteLine("                          ( Dies wird je nach der Menge von gewünschten Primzahlen lange brachen )");
+            Console.WriteLine("\n     ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░");
+            Console.SetCursorPosition(5, Console.CursorTop - 1);
+            
+            double temp = 0;
+            switch (startNummer.ToString().Length)
+            {
+                case 1:
+                    temp = startNummer * 1.0;
+                    break;
+                case 2:
+                    temp = startNummer * 2;
+                    break;
+                case 3:
+                    temp = startNummer * 4;
+                    break;
+                case 4:
+                    temp = startNummer * 6;
+                    break;
+                case 5:
+                    temp = startNummer * 8;
+                    break;
+                case 6:
+                    temp = startNummer * 10;
+                    break;
+                case 7:
+                    temp = startNummer * 13;
+                    break;
+                case 8:
+                    temp = startNummer * 15;
+                    break;
+                case 9:
+                    temp = startNummer * 17;
+                    break;
+                default:
+                    startNummer = startNummer * 8;
+                    double multiplikator = 0;
+                    for (int i = 0; i < startNummer.ToString().Length - 5; i++)
+                    {
+                        multiplikator += 2;
+                    }
+                    temp = startNummer * multiplikator;
+                    break;
+            }
+
+            double primzahlenZahler = 0;
+            double primzahlenMitZahler = startNummer;
+            double ladebalken = 0;
+            double[] PersoenlichePrimzahlenListe = new double[Convert.ToInt32(zielNummer + 1 - startNummer)];
+
+            //Ausrechnung der Primzahlen mit der Primzahlenliste
+            if (startNummer <= 26002)
+            {
+                while (primzahlenMitZahler <= zielNummer)
+                {
+                    //Escape Abbruch Knopf
+                    if (Console.KeyAvailable)
+                    {
+                        if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+                        {
+                            break;
+                        }
+                    }
+                    //Console.WriteLine("zahlEingabe = " + zahlEingabe + "  |  primzahlenZahler = " + primzahlenZahler + "  |  primzahlenMItZahler = " + primzahlenMitZahler);
+                    //Ausrechnung
+                    if (primzahlenMitZahler < 26004)
+                    {
+                        if (Convert.ToInt32(primzahlenListe[Convert.ToInt32(primzahlenMitZahler - 1)]) == temp)
+                        {
+                            if (primzahlenMitZahler >= startNummer && primzahlenMitZahler <= zielNummer)
+                            {
+                                PersoenlichePrimzahlenListe[Convert.ToInt32(primzahlenZahler)] = temp;
+                                ladebalken++;
+                                if (ladebalken == Convert.ToInt64((zielNummer - (startNummer - 1)) / 110))
+                                {
+                                    ladebalken = 0;
+                                    Console.Write("█");
+                                }
+                                primzahlenZahler++;
+                            }
+                            primzahlenMitZahler++;
+                        }
+                        temp++;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+
+                if (zielNummer > 26002)
+                {
+                    while (primzahlenMitZahler <= zielNummer)
+                    {
+                        //Escape Abbruch Knopf
+                        if (Console.KeyAvailable)
+                        {
+                            if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+                            {
+                                break;
+                            }
+                        }
+
+                        //Ausrechnung
+                        if (IstPrimzahlNeu(temp, primzahlenListe))
+                        {
+                            if (primzahlenZahler >= startNummer && primzahlenZahler <= zielNummer)
+                            {
+                                PersoenlichePrimzahlenListe[Convert.ToInt32(primzahlenZahler)] = temp;
+                                ladebalken++;
+                                if (ladebalken == Convert.ToInt64((zielNummer - (startNummer - 1)) / 110))
+                                {
+                                    ladebalken = 0;
+                                    Console.Write("█");
+                                }
+                                primzahlenZahler++;
+                            }
+                            primzahlenMitZahler++;
+                        }
+                        temp++;
+                    }
+                }
+            }
+            File.WriteAllText(Pfad + "Primzahlenliste.txt", "");
+            File.WriteAllLines(Pfad + "Primzahlenliste.txt", Array.ConvertAll(PersoenlichePrimzahlenListe, x => x.ToString()));
             Console.Clear();
         }
     }
